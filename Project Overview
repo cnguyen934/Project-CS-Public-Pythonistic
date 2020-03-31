@@ -1,0 +1,26 @@
+# Resources
+https://www.npr.org/sections/goatsandsoda/2020/03/30/822491838/coronavirus-world-map-tracking-the-spread-of-the-outbreak
+https://yaleglobal.yale.edu/content/student-builds-covid-19-tracking-website-geekwire
+https://covid19.jvion.com/
+https://www.zmescience.com/medicine/coronavirus-germany-cases-maps-charts-stats-news-94235/
+https://www.cdc.gov/coronavirus/2019-ncov/cases-updates/world-map.html
+https://www.icann.org/news/blog/metadata-collection-and-controversy
+Violent Python by TJ O'Connor
+
+# Necessary/Ideal Data Sets
+Maps from which we will pull features and cross reference cases with
+Reportings by recognized health organizations on specific cases of COVID-19 such as WHO
+
+# Functional Requirements
+Scrape data from COVID-19 datasets including maps and charts
+(maybe) Use pandas library for data analysis
+(maybe) Shows graphical representation of reported information
+Report information in a graphical interface
+
+# Nonfunctional Requirements 
+Use Python to write the app
+Use pandas library
+
+
+
+
