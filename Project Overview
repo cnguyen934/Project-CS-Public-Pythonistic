@@ -1,23 +1,33 @@
-# Resources
+# Resources #
+
+# COVID 19 Maps/Data Sets
 https://www.npr.org/sections/goatsandsoda/2020/03/30/822491838/coronavirus-world-map-tracking-the-spread-of-the-outbreak
 https://yaleglobal.yale.edu/content/student-builds-covid-19-tracking-website-geekwire
 https://covid19.jvion.com/
 https://www.zmescience.com/medicine/coronavirus-germany-cases-maps-charts-stats-news-94235/
 https://www.cdc.gov/coronavirus/2019-ncov/cases-updates/world-map.html
+
+# Ethics for Metadata
 https://www.icann.org/news/blog/metadata-collection-and-controversy
 https://www.lawinsociety.org/legal-perspectives-on-scraping-data-from-the-modern-web
+
+# Libraries/Forks used
 https://en.wikipedia.org/wiki/Pandas_(software)
 https://pillow.readthedocs.io/en/latest/index.html
 https://docs.python.org/3/howto/urllib2.html?highlight=metadata
 https://realpython.com/beautiful-soup-web-scraper-python/
 https://docs.python.org/3/library/importlib.metadata.html
+
+# Book reference 
 Violent Python by TJ O'Connor
 
-# Necessary/Ideal Data Sets
+# Necessary/Ideal Data Sets #
 Maps from which we will pull features and cross reference cases with
 Reportings by recognized health organizations on specific cases of COVID-19 such as WHO
 
-# Functional Requirements
+# Requirements #
+
+# Functional Requirements 
 Scrape data from COVID-19 datasets including maps and charts
 (maybe) Use pandas library for data analysis
 Shows graphical representation of reported information
