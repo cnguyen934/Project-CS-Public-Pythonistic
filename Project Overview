@@ -6,6 +6,10 @@ https://www.zmescience.com/medicine/coronavirus-germany-cases-maps-charts-stats-
 https://www.cdc.gov/coronavirus/2019-ncov/cases-updates/world-map.html
 https://www.icann.org/news/blog/metadata-collection-and-controversy
 https://en.wikipedia.org/wiki/Pandas_(software)
+https://pillow.readthedocs.io/en/latest/index.html
+https://docs.python.org/3/howto/urllib2.html?highlight=metadata
+https://realpython.com/beautiful-soup-web-scraper-python/
+https://docs.python.org/3/library/importlib.metadata.html
 Violent Python by TJ O'Connor
 
 # Necessary/Ideal Data Sets
@@ -15,13 +19,14 @@ Reportings by recognized health organizations on specific cases of COVID-19 such
 # Functional Requirements
 Scrape data from COVID-19 datasets including maps and charts
 (maybe) Use pandas library for data analysis
-(maybe) Shows graphical representation of reported information
+Shows graphical representation of reported information
 Report information in a graphical interface
 
 # Nonfunctional Requirements 
 Use Python to write the app
 Use pandas library
-
+Use Beautiful Soup for scraper 
+Use Pillow for image processing for Python
 
 
 
