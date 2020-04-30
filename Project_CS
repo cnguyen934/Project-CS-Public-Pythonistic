@@ -1,0 +1,148 @@
+import sys
+from PyQt5.QtWidgets import *
+from PyQt5.QtGui import *
+from PyQt5.QtCore import *
+
+class MainWindow(QWidget):
+
+    def __init__(self):
+        super().__init__()
+        self.initUI()
+
+    def initUI(self):
+
+        
+        self.setWindowTitle('My Project')
+        self.setGeometry(300,300, 2000, 1000)
+
+        hbox = QHBoxLayout(self)
+
+        self.label1 = QLabel(self)
+        topLeft1 = QComboBox(self)
+        topLeft1.addItem('Canada')
+        topLeft1.addItem('Newfoundland and Labrador')
+        topLeft1.addItem('Prince Edward Island')
+        topLeft1.addItem('Nova Scotia')
+        topLeft1.addItem('New Brunswick')
+        topLeft1.addItem('Quebec')
+        topLeft1.addItem('Ontario')
+        topLeft1.addItem('Manitoba')
+        topLeft1.addItem('Saskatchewan')
+        topLeft1.addItem('Alberta')
+        topLeft1.addItem('British Columbia')
+        topLeft1.addItem('Yukon')
+        topLeft1.addItem('Northwest Territories')
+        topLeft1.addItem('Nunavut')
+        topLeft1.addItem('Repatriated travellers')
+        
+        topLeft1.setStyleSheet('QComboBox {\
+                          margin: left;\
+                          font: bold 14px;\
+                          background-color:orange;\
+                          color:black;\
+                          border-style: inset;\
+                          border-width: 2px;\
+                          border-corlor: beige;\
+                          padding: 6px;\
+                          }')
+
+        self.label2 = QLabel(self)
+        topLeft2 = QComboBox(self)
+        topLeft2.addItem('USA')
+        topLeft2.setStyleSheet('QComboBox {\
+                          margin: left;\
+                          font: bold 14px;\
+                          background-color:lightblue;\
+                          color:black;\
+                          border-style: inset;\
+                          border-width: 2px;\
+                          border-corlor: beige;\
+                          padding: 6px;\
+                          }')
+        self.label3 = QLabel(self)
+        topLeft3 = QComboBox(self)
+        topLeft3.addItem('Mexico')
+        topLeft3.setStyleSheet('QComboBox {\
+                          margin: left;\
+                          font: bold 14px;\
+                          background-color:lightyellow;\
+                          color:black;\
+                          border-style: inset;\
+                          border-width: 2px;\
+                          border-corlor: beige;\
+                          padding: 6px;\
+                          }')
+        
+        topright = QFrame()
+        topright.setFrameShape(QFrame.StyledPanel)
+
+        bottom1 = QPushButton('Refresh Butotn')
+        bottom1.setStyleSheet('QPushButton {\
+                          margin: left;\
+                          font: bold 14px;\
+                          background-color:lightblue;\
+                          color:white;\
+                          border-style: inset;\
+                          border-width: 2px;\
+                          border-radius: 10px;\
+                          border-corlor: beige;\
+                          padding: 6px;\
+                          }')
+        bottom1.resize(60, 30)
+        bottom1.move(10, 800)
+
+        bottom2 = QPushButton('Source Button')
+        bottom2.setStyleSheet('QPushButton {\
+                          margin: left;\
+                          font: bold 14px;\
+                          background-color:lightgray;\
+                          color:white;\
+                          border-style: inset;\
+                          border-width: 2px;\
+                          border-radius: 10px;\
+                          border-corlor: beige;\
+                          padding: 6px;\
+                          }')
+        bottom2.resize(50, 20)
+        bottom2.move(200, 800)
+        
+        bottom3 = QPushButton('Devs Button')
+        bottom3.setStyleSheet('QPushButton {\
+                          margin: left;\
+                          font: bold 14px;\
+                          background-color: purple;\
+                          color:white;\
+                          border-style: inset;\
+                          border-width: 2px;\
+                          border-radius: 10px;\
+                          border-corlor: beige;\
+                          padding: 6px;\
+                          }')
+        bottom3.resize(100, 30)
+        bottom3.move(400, 800)
+        
+        splitter1 = QSplitter(Qt.Horizontal)
+        splitter1. addWidget(topLeft1)
+        splitter1. addWidget(topLeft2)
+        splitter1. addWidget(topLeft3)
+        splitter1.addWidget(topright)
+
+        splitter2 = QSplitter(Qt.Vertical)
+        splitter2.addWidget(splitter1)
+        splitter2.addWidget(bottom1)
+        splitter2.addWidget(bottom2)
+        splitter2.addWidget(bottom3)
+        
+        hbox.addWidget(splitter2)
+
+        self.setLayout(hbox)
+        self.show()
+
+if __name__ == '__main__':
+
+    app = QApplication(sys.argv)
+    cs = MainWindow()
+    sys.exit(app.exec_())
+
+
+    
