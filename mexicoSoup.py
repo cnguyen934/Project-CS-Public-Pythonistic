@@ -15,6 +15,7 @@ results_table = results.find('table', class_ = 'wikitable')
 state_elems = results_table.find_all('tr')
 
 def scrapeMexico():
+    state_list.append(["State Name", "Number of Cases", "Number of Deaths"])
     for state_elem in state_elems:
         if (state_elem.find('a') and state_elem.find('a').has_attr('title')):
             state_title = state_elem.find('a')['title']
@@ -22,6 +23,7 @@ def scrapeMexico():
             state_cases = re.sub('<|t|d|>|/', '', str(td_list[0]))
             state_deaths = re.sub('<|t|d|>|/', '', str(td_list[2]))
             state_list.append([state_title, state_cases, state_deaths])
+    return state_list
     mexicoToCSV()
 
 def mexicoToCSV():
