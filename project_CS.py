@@ -1,48 +1,53 @@
 import sys
+import csv
 from PyQt5.QtWidgets import *
-from PyQt5.QtGui import QColor, QFont
+from PyQt5.QtGui import QColor, QFont, QPixmap
 from PyQt5.QtCore import *
 from PyQt5.Qt import QStandardItemModel, QStandardItem
 import mexicoSoup
-import csv
+import canadaSoup
+import usaSoup
 
 mexicoCovData = []
+canadaCovData = []
+usaCovData = []
 
 class StandardItem(QStandardItem):
-    def __init__(self, txt='', font_size=12, set_bold=False, color=QColor(0, 0, 0)):
+    def __init__(self, text='', font_size=12, set_bold=False, color=QColor(0, 0, 0)):
         super().__init__()
 
-        fnt = QFont('Courier New', font_size)
-        fnt.setBold(set_bold)
+        font = QFont('Courier New', font_size)
+        font.setBold(set_bold)
 
         self.setEditable(False)
         self.setForeground(color)
-        self.setFont(fnt)
-        self.setText(txt)
+        self.setFont(font)
+        self.setText(text)
 
-class MainWindow(QWidget):
+class MainWindow(QMainWindow):
 
     def __init__(self):
         super().__init__()
         
-        self.setWindowTitle('PROJECT CODE SCRAPER')
-        self.setGeometry(0,0, 2000, 1000)
+        self.setWindowTitle('PROJECT CODE SCRAPPERS')
+        self.setGeometry(30,30, 2000, 1200)
 
         hbox = QHBoxLayout()
-        # Canada Tree View
+
+        # Create Canada Tree View
         treeView = QTreeView(self)
         treeView.setHeaderHidden(True)
         treeView.setFixedWidth(380)
-        treeView.setFixedHeight(800)
-   
+        treeView.setFixedHeight(850)
+        treeView.move(10, 5)
         treeView.setStyleSheet('QTreeView {\
                           margin: left;\
-                          background-color:lightgray;\
-                          border-style: outset;\
+                          background-color:#FFFAFA;\
+                          border-style: solid;\
                           border-width: 2px;\
-                          border-corlor: beige;\
-                          padding: 2px;\
-                          }')
+                          border-radius: 10px;\
+                          border-corlor: gray;\
+                          padding: 6px;}')
 
         treeModel = QStandardItemModel()
         rootNode = treeModel.invisibleRootItem()
@@ -50,113 +55,115 @@ class MainWindow(QWidget):
         # Canada Data
         canada = StandardItem('Canada', 14, set_bold=True, color=QColor(255, 0, 0))
 
-        nl = StandardItem('Newfoundland and Labrador', set_bold=True, color=QColor(102, 51, 0))
+        nl = StandardItem('Newfoundland and Labrador', set_bold=True, color=QColor(178, 34, 34))
         canada.appendRow(nl)
-        case = StandardItem("cases: 256")
-        death = StandardItem("deaths: 3")
+        case = StandardItem("cases: " + str(canadaCovData[1][1]))
+        death = StandardItem("deaths: " + str(canadaCovData[1][2]))
         nl.appendRow(case)
         nl.appendRow(death)
 
-        pe = StandardItem('Prince Edward Island', set_bold=True, color=QColor(102, 51, 0))
+        pe = StandardItem('Prince Edward Island', set_bold=True, color=QColor(178, 34, 34))
         canada.appendRow(pe)
-        case = StandardItem("cases: 26")
-        death = StandardItem("deaths: 0")
+        case = StandardItem("cases: " + str(canadaCovData[2][1]))
+        death = StandardItem("deaths: " + str(canadaCovData[2][2]))
         pe.appendRow(case)
         pe.appendRow(death)
 
-        ns = StandardItem('Nova Scotia',set_bold=True, color=QColor(102, 51, 0))
+        ns = StandardItem('Nova Scotia',set_bold=True, color=QColor(178, 34, 34))
         canada.appendRow(ns)
-        case = StandardItem("cases: 827")
-        death = StandardItem("deaths: 16")
+        case = StandardItem("cases: " + str(canadaCovData[3][1]))
+        death = StandardItem("deaths: " + str(canadaCovData[3][2]))
         ns.appendRow(case)
         ns.appendRow(death)
 
-        nb = StandardItem('New Brunswick', set_bold=True, color=QColor(102, 51, 0))
+        nb = StandardItem('New Brunswick', set_bold=True, color=QColor(178, 34, 34))
         canada.appendRow(nb)
-        case = StandardItem("cases: 118")
-        death = StandardItem("deaths: 0")
+        case = StandardItem("cases: " + str(canadaCovData[4][1]))
+        death = StandardItem("deaths: " + str(canadaCovData[4][2]))
         nb.appendRow(case)
         nb.appendRow(death)
 
-        quebec = StandardItem('Quebec', set_bold=True, color=QColor(102, 51, 0))
+        quebec = StandardItem('Quebec', set_bold=True, color=QColor(178, 34, 34))
         canada.appendRow(quebec)
-        case = StandardItem("cases: 21,838")
-        death = StandardItem("deaths: 243")
+        case = StandardItem("cases: " + str(canadaCovData[5][1]))
+        death = StandardItem("deaths: " + str(canadaCovData[5][2]))
         quebec.appendRow(case)
         quebec.appendRow(death)
 
-        ontario = StandardItem('Ontario', set_bold=True, color=QColor(102, 51, 0))
+        ontario = StandardItem('Ontario', set_bold=True, color=QColor(178, 34, 34))
         canada.appendRow(ontario)
-        case = StandardItem("cases: 12,879")
-        death = StandardItem("deaths: 713")
+        case = StandardItem("cases: " + str(canadaCovData[6][1]))
+        death = StandardItem("deaths: " + str(canadaCovData[6][2]))
         ontario.appendRow(case)
         ontario.appendRow(death)
 
-        manitoba = StandardItem('Manitoba', set_bold=True, color=QColor(102, 51, 0))
+        manitoba = StandardItem('Manitoba', set_bold=True, color=QColor(178, 34, 34))
         canada.appendRow(manitoba)
-        case = StandardItem("cases: 251")
-        death = StandardItem("deaths: 6")
+        case = StandardItem("cases: " + str(canadaCovData[7][1]))
+        death = StandardItem("deaths: " + str(canadaCovData[7][2]))
         manitoba.appendRow(case)
         manitoba.appendRow(death)
 
-        saskatchewan = StandardItem('Saskatchewan', set_bold=True, color=QColor(102, 51, 0))
+        saskatchewan = StandardItem('Saskatchewan', set_bold=True, color=QColor(178, 34, 34))
         canada.appendRow(saskatchewan)
-        case = StandardItem("cases: 331")
-        death = StandardItem("deaths: 4")
+        case = StandardItem("cases: " + str(canadaCovData[8][1]))
+        death = StandardItem("deaths: " + str(canadaCovData[8][2]))
         saskatchewan.appendRow(case)
         saskatchewan.appendRow(death)
 
-        alberta = StandardItem('Alberta', set_bold=True, color=QColor(102, 51, 0))
+        alberta = StandardItem('Alberta', set_bold=True, color=QColor(178, 34, 34))
         canada.appendRow(alberta)
-        case = StandardItem("cases: 3,720")
-        death = StandardItem("deaths: 67")
+        case = StandardItem("cases: " + str(canadaCovData[9][1]))
+        death = StandardItem("deaths: " + str(canadaCovData[9][2]))
         alberta.appendRow(case)
         alberta.appendRow(death)
 
-        bc = StandardItem('Bristis Columbia', set_bold=True, color=QColor(102, 51, 0))
+        bc = StandardItem('Bristis Columbia', set_bold=True, color=QColor(178, 34, 34))
         canada.appendRow(bc)
-        case = StandardItem("cases: 1,824")
-        death = StandardItem("deaths: 94")
+        case = StandardItem("cases: " + str(canadaCovData[10][1]))
+        death = StandardItem("deaths: " + str(canadaCovData[10][2]))
         bc.appendRow(case)
         bc.appendRow(death)
 
-        yukon = StandardItem('Yukon', set_bold=True, color=QColor(102, 51, 0))
+        yukon = StandardItem('Yukon', set_bold=True, color=QColor(178, 34, 34))
         canada.appendRow(yukon)
-        case = StandardItem("cases: 11")
-        death = StandardItem("deaths: 0")
+        case = StandardItem("cases: " + str(canadaCovData[11][1]))
+        death = StandardItem("deaths: " + str(canadaCovData[11][2]))
         yukon.appendRow(case)
         yukon.appendRow(death)
 
-        nt = StandardItem('Northwest Teritories', set_bold=True, color=QColor(102, 51, 0))
+        nt = StandardItem('Northwest Teritories', set_bold=True, color=QColor(178, 34, 34))
         canada.appendRow(nt)
-        case = StandardItem("cases: 5")
-        death = StandardItem("deaths: 0")
+        case = StandardItem("cases: " + str(canadaCovData[12][1]))
+        death = StandardItem("deaths: " + str(canadaCovData[12][2]))
         nt.appendRow(case)
         nt.appendRow(death)
 
-        nunavut = StandardItem('Nunavut', set_bold=True, color=QColor(102, 51, 0))
-        canada.appendRow(alberta)
-        case = StandardItem("cases: 0")
-        death = StandardItem("deaths: 0")
+        nunavut = StandardItem('Nunavut', set_bold=True, color=QColor(178, 34, 34))
+        canada.appendRow(nunavut)
+        case = StandardItem("cases: " + str(canadaCovData[13][1]))
+        death = StandardItem("deaths: " + str(canadaCovData[13][2]))
         nunavut.appendRow(case)
         nunavut.appendRow(death)
 
+        # Add canada data to rootnode and set the tree model for tree view
         rootNode.appendRow(canada)
         treeView.setModel(treeModel)
 
-        # USA Tree View
+        # Create USA Tree View
         treeViewUS = QTreeView(self)
         treeViewUS.setHeaderHidden(True)
         treeViewUS.setFixedWidth(380)
-        treeViewUS.setFixedHeight(800)
-        
+        treeViewUS.setFixedHeight(850)
+        treeViewUS.move(380, 5)
         treeViewUS.setStyleSheet('QTreeView {\
                           margin: left;\
-                          background-color:lightgray;\
+                          background-color:#F0F8FF;\
                           border-style: inset;\
                           border-width: 2px;\
-                          border-corlor: beige;\
-                          padding: 2px;\
+                          border-radius: 10px;\
+                          border-corlor: gray;\
+                          padding: 6px;\
                           }')
 
         treeModelUS = QStandardItemModel()
@@ -165,17 +172,17 @@ class MainWindow(QWidget):
         # USA Data
         usa = StandardItem('USA', 14, set_bold=True, color=QColor(0, 0, 204))
 
-        ny = StandardItem('NewYork', set_bold=True, color=QColor(76, 0, 153))
+        ny = StandardItem('New York', set_bold=True, color=QColor(76, 0, 153))
         usa.appendRow(ny)
-        case = StandardItem("cases: 291,996")
-        death = StandardItem("deaths: 22,585")
+        case = StandardItem("cases: ")
+        death = StandardItem("deaths: ")
         ny.appendRow(case)
         ny.appendRow(death)
 
         nj = StandardItem('New Jersey', set_bold=True, color=QColor(76, 0, 153))
         usa.appendRow(nj)
-        case = StandardItem("cases: 111,188")
-        death = StandardItem("deaths: 6,044")
+        case = StandardItem("cases: ")
+        death = StandardItem("deaths: ")
         nj.appendRow(case)
         nj.appendRow(death)
 
@@ -542,30 +549,32 @@ class MainWindow(QWidget):
         death = StandardItem("deaths: 4")
         vi.appendRow(case)
         vi.appendRow(death)
-        
+
+        # Add usa data to rootnode and set the tree model for tree view
         rootNodeUS.appendRow(usa)
         treeViewUS.setModel(treeModelUS)
 
-        #Mexico Tree View
+        # Create Mexico Tree View
         treeViewMx = QTreeView(self)
         treeViewMx.setHeaderHidden(True)
         treeViewMx.setFixedWidth(380)
-        treeViewMx.setFixedHeight(800)
+        treeViewMx.setFixedHeight(850)
+        treeViewMx.move(750, 5)
        
         treeViewMx.setStyleSheet('QTreeView {\
                           margin: left;\
-                          background-color:lightgray;\
+                          background-color: #F5FFFA;\
                           border-style: inset;\
                           border-width: 2px;\
-                          border-corlor: beige;\
-                          padding: 2px;\
+                          border-radius: 10px;\
+                          border-corlor: gray;\
+                          padding: 6px;\
                           }')
 
         treeModelMx = QStandardItemModel()
         rootNodeMx = treeModelMx.invisibleRootItem()
 
-        # Mexico Data
-        
+        # Mexico Data        
         mexico = StandardItem('Mexico', 14, set_bold=True, color=QColor(0, 153, 0))
 
         mc = StandardItem(mexicoCovData[0][0], set_bold=True, color=QColor(102, 102, 0))
@@ -792,91 +801,168 @@ class MainWindow(QWidget):
         col.appendRow(case)
         col.appendRow(death)
 
+        # Add mexico data to rootnode and set the tree model for tree view
         rootNodeMx.appendRow(mexico)
         treeViewMx.setModel(treeModelMx)
-        
-        topright = QLabel('North Ameica Map')
-        topright.setFixedWidth(1000)
-        topright.setFixedHeight(800)
-        topright.setAlignment(Qt.AlignRight
-                              )
-        bottom1 = QPushButton('Refresh Butotn')
-        bottom1.setStyleSheet('QPushButton {\
-                          margin: left;\
-                          font: bold 14px;\
-                          background-color:lightblue;\
+
+        # North America Map
+        mapNA = QFrame(self)
+        mapNA.setFixedWidth(830)
+        mapNA.setFixedHeight(880)
+        mapNA.move(1130, 20)
+        mapNA.setStyleSheet('QFrame {\
+                              background-color:#F5F5F5;\
+                              border: 6px gray solid;\
+                              }')
+
+        # Refesh Button                      
+        refresh_btn = QPushButton('Refresh', self)
+        refresh_btn.setStyleSheet('QPushButton {\
+                          font: bold 16px;\
+                          background-color:purple;\
                           color:white;\
                           border-style: inset;\
-                          border-width: 2px;\
+                          border-width: 3px;\
                           border-radius: 10px;\
                           border-corlor: beige;\
                           padding: 6px;\
                           }')
 
-        bottom1.setFixedWidth(180)
-        bottom1.setFixedHeight(80)
+        refresh_btn.setFixedWidth(220)
+        refresh_btn.setFixedHeight(80)
+        refresh_btn.move(50, 900)
+        refresh_btn.clicked.connect(self.onRefreshClicked)
 
-        bottom2 = QPushButton('Source Button')
-        bottom2.setStyleSheet('QPushButton {\
-                          margin: left;\
-                          font: bold 14px;\
-                          background-color:lightgray;\
+        # Source Button
+        source_btn = QPushButton('Source', self)
+        source_btn.setStyleSheet('QPushButton {\
+                          font: bold 16px;\
+                          background-color:#FFB266;\
                           color:white;\
                           border-style: inset;\
-                          border-width: 2px;\
+                          border-width: 3px;\
                           border-radius: 10px;\
                           border-corlor: beige;\
                           padding: 6px;\
                           }')
 
-        bottom2.setFixedWidth(180)
-        bottom2.setFixedHeight(80)
+        source_btn.setFixedWidth(220)
+        source_btn.setFixedHeight(80)
+        source_btn.move(300, 900)
+        source_btn.clicked.connect(self.onSourceClicked)
         
-        bottom3 = QPushButton('Devs Button')
-        bottom3.setStyleSheet('QPushButton {\
-                          margin: left;\
-                          font: bold 14px;\
-                          background-color: purple;\
+        # Devs Button
+        devs_btn = QPushButton('Developers', self)
+        devs_btn.setStyleSheet('QPushButton {\
+                          font: bold 16px;\
+                          background-color: lightblue;\
                           color:white;\
                           border-style: inset;\
-                          border-width: 2px;\
+                          border-width: 3px;\
                           border-radius: 10px;\
                           border-corlor: beige;\
                           padding: 6px;\
                           }')
 
-        bottom3.setFixedWidth(180)
-        bottom3.setFixedHeight(80)                            
+        devs_btn.setFixedWidth(220)
+        devs_btn.setFixedHeight(80)                            
+        devs_btn.move(550, 900)
+        devs_btn.clicked.connect(self.onDevsClicked)
 
-        h_splitter = QSplitter(Qt.Horizontal)
-        h_splitter.addWidget(treeView)
-        h_splitter.addWidget(treeViewUS)
-        h_splitter.addWidget(treeViewMx)
-        h_splitter.addWidget(topright)
-
-        vtop_splitter = QSplitter(Qt.Vertical)
-        vtop_splitter.addWidget(h_splitter)
-        vtop_splitter.addWidget(bottom1)
-        vtop_splitter.addWidget(bottom2)
-        vtop_splitter.addWidget(bottom3)
+        quitButton = QPushButton('Quit', self)
+        quitButton.setStyleSheet('QPushButton {\
+                          font: bold 16px;\
+                          background-color: gray;\
+                          color:white;\
+                          border-style: inset;\
+                          border-width: 3px;\
+                          border-radius: 10px;\
+                          border-corlor: beige;\
+                          padding: 6px;\
+                          }')
+        quitButton.setFixedWidth(220)
+        quitButton.setFixedHeight(80)                            
+        quitButton.move(800, 900)
+        quitButton.clicked.connect(self.onQuitClicked)
         
-        hbox.addWidget(vtop_splitter)
-
+        news = QTextEdit(self)
+        news.setFixedWidth(800)
+        news.setFixedHeight(200)
+        news.move(1150, 980)
+        
+        
+        hbox.addWidget(refresh_btn)
+        hbox.addWidget(source_btn)
+        hbox.addWidget(devs_btn)
+        hbox.addWidget(news)
+                   
         self.setLayout(hbox)
         self.show()
 
-def getMexicoData():
-    with open('mexicoData.csv') as countryData:
-        csv_reader = csv.reader(countryData, delimiter=',')
-        for row in csv_reader:
-            mexicoCovData.append([row[0], row[1], row[2]])
+    def onRefreshClicked(self):
+        refMsg = QMessageBox(self)
+
+    def onSourceClicked(self, source):
+
+        source = ("https://realpython.com/beautiful-soup-web-scraper-python \n" + \
+                  "https://realpython.com/openpyxl-excel-spreadsheets-python \n" + \
+                  "https://doc.qt.io/qt-5/stylesheet-reference.html \n" + \
+                  "https://doc.qt.io/qtforpython/PySide2/QtGui/QFont.html#more \n" + \
+                  "https://doc.qt.io/qtforpython/PySide2/QtWidgets/QTreeView.html \n" + \
+                  "https://docs.python.org/3/howto/urllib2.html")
+              
+        sourceMsg = QMessageBox(self)
+        sourceMsg.setWindowTitle('References: ')
+        sourceMsg.move(400, 1100)
+        sourceMsg.setText(source)
+        sourceMsg.setStyleSheet('QMessageBox {\
+                              font: 15px;\
+                              font-family: georgia;\
+                              background-color:#FFE5CC;\
+                              padding: 6px;\
+                              }')
+        sourceMsg.exec_()
+
+    def onDevsClicked(self):
+        
+        devsBox = QDiaglog(self)
+        devsBox.setWindowTitle('Developed by: ')
+        devsBox.setGeometry(100, 100, 500, 300)       
+        labelImage = QLabel(self)
+        pixmap = QPixmap("codeScrapers.png")
+        labelImage.setPixmap(pixmap)
+        devsBox.addWidget(labelImage)
+#        self.setModel(True)
+#        devsBox.exec_()
+        devsBox.show()
+        
+    def onQuitClicked(self):
+        sys.exit(app.exec_())
     
+def getCanadaData():
+        with open('canadaData.csv') as canData:
+            csv_reader = csv.reader(canData, delimiter=',')
+            for row in csv_reader:
+                canadaCovData.append([row[0], row[1], row[2]])
+            
+def getUsaData():
+        with open('usaData.csv') as usData:
+            csv_reader = csv.reader(usData, delimiter=',')
+            for row in csv_reader:
+                usaCovData.append([row[0], row[1], row[2]])
+
+def getMexicoData():
+        with open('mexicoData.csv') as countryData:
+            csv_reader = csv.reader(countryData, delimiter=',')
+            for row in csv_reader:
+                mexicoCovData.append([row[0], row[1], row[2]])   
+   
 if __name__ == '__main__':
-    mexicoSoup.scrapeMexico()
-    mexicoSoup.mexicoToCSV()
+
     getMexicoData()
+    getCanadaData()
     app = QApplication(sys.argv)
-    cs = MainWindow()
+    codeScraper = MainWindow()
     sys.exit(app.exec_())
 
 
