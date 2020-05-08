@@ -36,5 +36,14 @@ Carlan has taken over the news section and its end implementation. Eldon has bee
 implementation of the map and research regarding it. If we manage to adequately finish our respective section, the
 person will then hop on towards implementation of the buttons. 
 
+Libraries---
 
-
+requests to make a request and get the content of a web page 
+urllib.request and urlopen to open urls
+BeautifulSoup to scrape or pull data out of HTML files
+csv to save data that have scaped in csv files
+sys to use system-specific parameters and functions
+PyQt5.QtWidgets to create the widgets for our application
+PyQt5.QtGui to use graphical elements for customization
+PyQt5.QtCore is a non_GUI module to provide core infrastructure for Qt
+PyQt5.Qt is a cross-platform framework providing QStandardItemModel and QStandardItem for creating and customizing the Tree View
